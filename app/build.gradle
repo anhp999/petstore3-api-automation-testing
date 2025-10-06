@@ -27,18 +27,24 @@ dependencies {
     implementation("org.apache.poi:poi:5.4.1")
     implementation("org.apache.poi:poi-ooxml:5.4.1")
     implementation("com.github.java-json-tools:json-schema-validator:2.2.14")
-    
-    testImplementation("io.rest-assured:rest-assured:5.5.6")
+    implementation("org.apache.logging.log4j:log4j-core:2.25.1")
+    implementation("org.apache.logging.log4j:log4j-api:2.25.1")
+    testImplementation("io.rest-assured:rest-assured:5.5.6")//
+    testRuntimeOnly("org.fusesource.jansi:jansi:2.4.0")
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use TestNG test framework
-            useTestNG()
-        }
+test {
+    useTestNG() {
+        useDefaultListeners = true
+        outputDirectory = file("$projectDir/test-output")
+        suites 'src/test/resources/testng.xml'
     }
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -46,8 +52,4 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
-}
-
-tasks.withType(Test) {
-    failOnNoDiscoveredTests = false
 }
