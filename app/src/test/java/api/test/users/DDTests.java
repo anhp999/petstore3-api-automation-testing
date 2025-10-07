@@ -1,4 +1,4 @@
-package api.test;
+package api.test.users;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

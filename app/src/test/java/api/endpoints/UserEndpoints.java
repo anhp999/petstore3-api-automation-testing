@@ -5,14 +5,15 @@ import api.payload.User;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public class UserEndpoints {
+public class UserEndpoints extends BaseEndpoints {
+
     public static Response createUser(User payload) {
         Response response = given()
             .contentType(ContentType.JSON)
             .accept(ContentType.JSON)
             .body(payload)
         .when()
-            .post(Routes.user_post_url);
+            .post(user_post_url);
 
         return response;
     };
@@ -21,7 +22,7 @@ public class UserEndpoints {
         Response response = given()
             .pathParam("username", userName)
         .when()
-            .get(Routes.user_get_url);
+            .get(user_get_url);
 
         return response;
     };
@@ -33,7 +34,7 @@ public class UserEndpoints {
             .pathParam("username", userName)
             .body(payload)
         .when()
-            .put(Routes.user_update_url);
+            .put(user_update_url);
 
         return response;
     };
@@ -42,7 +43,7 @@ public class UserEndpoints {
         Response response = given()
             .pathParam("username", userName)
         .when()
-            .delete(Routes.user_delete_url);
+            .delete(user_delete_url);
 
         return response;
     };
