@@ -6,3 +6,6 @@ build
 .vscode
 test-output
 bin
+**/resources/routes.properties
+logs
+reports
